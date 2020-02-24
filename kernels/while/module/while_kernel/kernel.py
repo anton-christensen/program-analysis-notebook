@@ -1,5 +1,6 @@
 from ipykernel.kernelbase import Kernel
-import os
+import subprocess
+import html
 
 class WhileKernel(Kernel):
     implementation = 'While'
@@ -15,6 +16,12 @@ class WhileKernel(Kernel):
 
     def do_execute(self, code, silent, store_history=True, user_expressions=None,
                    allow_stdin=False):
+        p = subprocess.run("/home/hense/Git/program-analysis-notebook/kernels/while/module/while_kernel/hs/run",
+            stdout=subprocess.PIPE,
+            input=code,
+            encoding='ascii'
+            )
+
         if not silent:
             if code == "restart":
                 self.send_response(self.iopub_socket, 'display_data', {    
@@ -27,8 +34,8 @@ class WhileKernel(Kernel):
             #stream_content = {'name': 'stdout', 'text': "<h1>html data</h1>"}
             display_data_content = {    
                 'data': {
-                    'text/plain': 'this is simply text',
-                    'text/html': "test: <br><h1>fest uden a22sdasdhest</h1>"
+                    'text/plain': p.stdout,
+                    'text/html': "test: <p>" + html.escape(p.stdout) + "</p>"
                 },
                 'metadata': {}
             }

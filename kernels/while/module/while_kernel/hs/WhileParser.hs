@@ -1,5 +1,6 @@
 module WhileParser where
 
+import System.Environment
 import System.IO
 import Control.Monad
 import Text.ParserCombinators.Parsec
@@ -231,3 +232,10 @@ parseProgramFile fname = parseFromFile program fname
 
 parseProgram :: String -> Either ParseError Cmd
 parseProgram prg = parse program "<input string>" prg
+
+main :: IO ()
+main = do
+    content <- getContents
+    putStrLn (case parseProgram content of 
+      Left err -> show err
+      Right res -> show res)

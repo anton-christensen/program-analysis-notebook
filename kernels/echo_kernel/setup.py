@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='echo_kernel',
-    version='1.1',
+    version='1.2',
     packages=['echo_kernel'],
     description='Simple example kernel for Jupyter',
     long_description=readme,

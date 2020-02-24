@@ -15,22 +15,15 @@ class EchoKernel(Kernel):
     def do_execute(self, code, silent, store_history=True, user_expressions=None,
                    allow_stdin=False):
         if not silent:
-            # stream_content = {'name': 'stdout', 'text': code}
-            stream_content = {
+            # stream_content = {'name': 'stdout', 'text': "<h1>html data</h1>"}
+            display_data_content = {    
                 'data': {
-                    # 'mime': 'data',
-                    'application/json': '{code: '+code+'}'
-                }, 
-                'metadata': {
-                    # 'mime': {
-                        # 'meta-property': 'meta-value',
-                    # },
-                    'application/json' : {
-                        'expanded': True
-                    }
-                }
+                    'text/html': "test: <br><h1>fest uden hest</h1>"
+                },
+                'metadata': {}
             }
-            self.send_response(self.iopub_socket, 'stream', stream_content)
+            # self.send_response(self.iopub_socket, 'stream', stream_content)
+            self.send_response(self.iopub_socket, 'display_data', display_data_content)
 
         return {'status': 'ok',
                 # The base class increments the execution count

@@ -1,1 +1,1 @@
-jupyter console --kernel echo
+jupyter qtconsole --kernel echo
